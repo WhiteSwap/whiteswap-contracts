@@ -1,6 +1,6 @@
 pragma solidity ^0.6.12;
 
-import '../../interfaces/IWSProxy.sol';
+import '../interfaces/IWSProxy.sol';
 
 /**
  * @dev This abstract contract provides a fallback function that delegates all calls to another contract using the EVM

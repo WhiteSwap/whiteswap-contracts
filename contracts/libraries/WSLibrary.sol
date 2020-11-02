@@ -21,7 +21,7 @@ library WSLibrary {
                 hex'ff',
                 factory,
                 keccak256(abi.encodePacked(token0, token1)),
-                hex'2fb56fc95c2bf45d826493d0e2f675e7adc5b686c533b5e04e47de907e287878' // init code hash
+                hex'c3269f83aca65422b68bd8f11bf7cda4d9cebe3d8813a38a34f97b042b8d5574' // init code hash
             ))));
     }
 

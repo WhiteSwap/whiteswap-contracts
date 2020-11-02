@@ -17,7 +17,7 @@ const overrides = {
 
 describe('GovToken', async () => {
   const name = 'WSGov'
-  const symbol = 'WSG'
+  const symbol = 'WSE'
   const provider = new MockProvider({
     ganacheOptions: {
       hardfork: 'istanbul',

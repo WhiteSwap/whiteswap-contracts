@@ -21,7 +21,6 @@ import WSProxyRouter from '../build/WSProxyRouter.json'
 import WSProxyPair from '../build/WSProxyPair.json'
 
 import Escrow from '../build/Escrow.json'
-import EscrowTreasury from '../build/EscrowTreasury.json'
 
 import StakingRewardsFactory from '../build/StakingRewardsFactory.json'
 
@@ -30,15 +29,12 @@ let overrides = {
   nonce: 0
 }
 
-const USDT_ADDRESS = '0xdac17f958d2ee523a2206206994597c13d831ec7'
-const USDC_ADDRESS = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
-const DAI_ADDRESS = '0x6b175474e89094c44da98b954eedeac495271d0f'
-const WBTC_ADDRESS = '0x2260fac5e5542a773aa44fbcfedf7c193bc2c599'
-const CORE_ADDRESS = '0x62359Ed7505Efc61FF1D56fEF82158CcaffA23D7'
-const YFI_ADDRESS = '0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e'
-const LINK_ADDRESS = '0x514910771af9ca656af840dff83e8264ecf986ca'
+const DAI_ADDRESS = '0xc7AD46e0b8a400Bb3C915120d284AafbA8fc4735'
+const UNI_ADDRESS = '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984'
+const MKR_ADDRESS = '0xF9bA5210F91D0474bd1e1DcDAeC4C58E359AaD85'
 
-const WETH_ADDRESS = '0x0a180A76e4466bF68A7F86fB029BEd3cCcFaAac5'
+// It is different for each network make attention
+const WETH_ADDRESS = '0xc778417E063141139Fce010982780140Aa0cD5Ab'
 
 /// team and advisers account should also changed manualy in SCHEDULE
 const TEAM_ACCOUNT = '0xFd97416BD76fc081119e3B409a9D703517E0faB2'
@@ -80,7 +76,7 @@ function delay(sec: number) {
 
 
 // Compile ts
-//tsc scripts/deployContracts.ts --target es2017 --module commonjs --moduleResolution node  --resolveJsonModule --esModuleInterop
+//tsc scripts/rinkebyDeploy.ts --target es2017 --module commonjs --moduleResolution node  --resolveJsonModule --esModuleInterop
 
 interface BaseDeploy {
   pairFactory: Contract,
@@ -186,13 +182,9 @@ async function deployPairRewards(factoryAddress: string, tokens: [string, string
 export async function configureRewards(wethAddress: string, timelock: Contract, govToken: Contract, factoryPair: Contract,  stakingFactory: Contract) {
   console.log('Start deploy rewards staking.')
   let results = []
-  await deployPairRewards(factoryPair.address, [wethAddress, USDT_ADDRESS], expandTo18Decimals(9000000), stakingFactory, results)
-  await deployPairRewards(factoryPair.address, [wethAddress, USDC_ADDRESS], expandTo18Decimals(9000000), stakingFactory, results)
   await deployPairRewards(factoryPair.address, [wethAddress, DAI_ADDRESS], expandTo18Decimals(8000000), stakingFactory, results)
-  await deployPairRewards(factoryPair.address, [wethAddress, WBTC_ADDRESS], expandTo18Decimals(8000000), stakingFactory, results)
-  await deployPairRewards(factoryPair.address, [wethAddress, CORE_ADDRESS], expandTo18Decimals(2000000), stakingFactory, results)
-  await deployPairRewards(factoryPair.address, [wethAddress, YFI_ADDRESS], expandTo18Decimals(2000000), stakingFactory, results)
-  await deployPairRewards(factoryPair.address, [wethAddress, LINK_ADDRESS], expandTo18Decimals(2000000), stakingFactory, results)
+  await deployPairRewards(factoryPair.address, [wethAddress, UNI_ADDRESS], expandTo18Decimals(8000000), stakingFactory, results)
+  await deployPairRewards(factoryPair.address, [wethAddress, MKR_ADDRESS], expandTo18Decimals(2000000), stakingFactory, results)
   console.log('Deploy reward staking finished.')
   const rewardsTotalAmount = results.reduce((a: BigNumber, b: BigNumber) => { return a.add(b) }, BigNumber.from(0))
   await govToken.transfer(stakingFactory.address, rewardsTotalAmount, overrides)
@@ -253,7 +245,6 @@ async function main() {
 
     let wallet = new Wallet("${secret_key}", web3Provider)
     overrides['nonce'] = await wallet.getTransactionCount()
-    overrides['nonce'] += 1
     console.log(wallet.address)
 
     const baseDeploy = await deployWSwapTest(wallet, WETH_ADDRESS)

@@ -2,3 +2,7 @@
 node_modules
 build
 yarn-error.log
+scripts/*.js
+test/*.js
+test/shared/*.js
+error.txt

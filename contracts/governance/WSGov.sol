@@ -9,7 +9,7 @@ contract WSGov {
     string public constant name = "WSGov";
 
     /// @dev EIP-20 token symbol for this token
-    string public constant symbol = "WSG";
+    string public constant symbol = "WSE";
 
     /// @dev EIP-20 token decimals for this token
     uint8 public constant decimals = 18;
