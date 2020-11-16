@@ -6,18 +6,16 @@ import { makeDeploy } from './deployBasic'
 import { expandTo18Decimals } from '../test/shared/utilities'
 import { INFURA_ID, SECRET_KEY} from './constants'
 
-const NETWORK_NAME = 'rinkeby' 
+const NETWORK_NAME = 'ropsten' 
 
-const DAI_ADDRESS = '0xc7AD46e0b8a400Bb3C915120d284AafbA8fc4735'
+const DAI_ADDRESS = '0xaD6D458402F60fD3Bd25163575031ACDce07538D'
 const UNI_ADDRESS = '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984'
-const MKR_ADDRESS = '0xF9bA5210F91D0474bd1e1DcDAeC4C58E359AaD85'
 
-const WETH_ADDRESS = '0xc778417E063141139Fce010982780140Aa0cD5Ab'
+const WETH_ADDRESS = '0x0a180A76e4466bF68A7F86fB029BEd3cCcFaAac5'
 
 const STAKING_PAIRS: [string, string, BigNumber][] = [
   [WETH_ADDRESS, DAI_ADDRESS, expandTo18Decimals(8000000)],
-  [WETH_ADDRESS, UNI_ADDRESS, expandTo18Decimals(8000000)],
-  [WETH_ADDRESS, MKR_ADDRESS, expandTo18Decimals(2000000)]
+  [WETH_ADDRESS, UNI_ADDRESS, expandTo18Decimals(8000000)]
 ]
 
 // Fake account for now

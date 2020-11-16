@@ -16,7 +16,7 @@ const overrides = {
 }
 
 describe('GovToken', async () => {
-  const name = 'WSGov'
+  const name = 'WhiteSwap'
   const symbol = 'WSE'
   const provider = new MockProvider({
     ganacheOptions: {

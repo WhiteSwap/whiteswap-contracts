@@ -31,6 +31,9 @@ import GovernorAlpha from '../../build/GovernorAlpha.json'
 import StakingRewards from '../../build/StakingRewards.json'
 import StakingRewardsFactory from '../../build/StakingRewardsFactory.json'
 
+import { deployWSwapTest, BaseDeploy, configureRewards, configureEscrow, makeNotifyRewardAmounts } from '../../scripts/deployBasic'
+import { STAKING_PAIRS, WETH_ADDRESS, ADVISER_ACCOUNT  } from '../../scripts/mainnetDeploy'
+
 const overrides = {
   gasLimit: 9999999
 }
@@ -374,4 +377,16 @@ export async function stakingRewardsFactoryFixture(
   const stakingRewardsFactory = await deployContract(wallet, StakingRewardsFactory, [rewardsToken.address, genesis])
 
   return { rewardsToken, stakingTokens, genesis, rewardAmounts, stakingRewardsFactory }
+}
+
+export async function deployFixture([wallet]: Wallet[], provider: Web3Provider): Promise<BaseDeploy> {
+  return await deployWSwapTest(wallet, WETH_ADDRESS)
+}
+
+export async function configurationDeployFixture([wallet]: Wallet[], provider: Web3Provider): Promise<BaseDeploy> {
+  let deployed = await deployWSwapTest(wallet, WETH_ADDRESS)
+  await configureRewards(STAKING_PAIRS, deployed.timelock, deployed.govToken, deployed.pairFactory, deployed.stakingFactory)
+ await configureEscrow(deployed.govToken, deployed.timelock, deployed.escrow, ADVISER_ACCOUNT)
+ await makeNotifyRewardAmounts(deployed.stakingFactory, deployed.timelock)
+ return deployed
 }

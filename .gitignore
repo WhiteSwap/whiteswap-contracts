@@ -5,4 +5,5 @@ yarn-error.log
 scripts/*.js
 test/*.js
 test/shared/*.js
+constants.ts
 error.txt

@@ -6,7 +6,7 @@ pragma solidity ^0.6.12;
 
 contract WSGov {
     /// @dev EIP-20 token name for this token
-    string public constant name = "WSGov";
+    string public constant name = "WhiteSwap";
 
     /// @dev EIP-20 token symbol for this token
     string public constant symbol = "WSE";
